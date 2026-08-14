@@ -177,6 +177,48 @@ export type GateThreshold = {
   huong: "cao-tot" | "thap-tot";
 };
 
+/* ---- Hàng chờ rà soát (Reviewer workspace) ---- */
+
+export type TrangThaiTruong = "cho" | "da-duyet" | "da-sua";
+
+export type TruongRaSoat = {
+  id: string;
+  nhan: string;
+  giaTri: string;
+  giaTriGoc: string;
+  doTinCay: number; // 0..1
+  trichDan: string; // đoạn văn bản nguồn (bằng chứng)
+  viTri: string; // vị trí trong tài liệu
+  trangThai: TrangThaiTruong;
+};
+
+export type HoSoRaSoat = {
+  id: string;
+  maHoSo: string;
+  tenTep: string;
+  docType: string;
+  domainId: string;
+  nguoiGui: string;
+  guiLuc: string; // ISO
+  lyDoRaSoat: string;
+  doUuTien: "cao" | "thuong";
+  trangThai: "cho-ra-soat" | "hoan-tat" | "tra-lai";
+  truong: TruongRaSoat[];
+};
+
+/* ---- Phiên bản Configuration Bundle ---- */
+
+export type BundleVersion = {
+  id: string;
+  docType: string;
+  phienBan: number;
+  trangThai: TrangThaiArtifact;
+  taoLuc: string; // ISO
+  taoBoi: string;
+  ghiChu: string;
+  soCauHinh: number;
+};
+
 type State = {
   domainId: string;
   toChuc: Organization[];
@@ -190,6 +232,8 @@ type State = {
   datasets: Dataset[];
   evaluations: EvaluationRun[];
   gates: GateThreshold[];
+  hangChoRaSoat: HoSoRaSoat[];
+  bundles: BundleVersion[];
 };
 
 const now = Date.now();
@@ -325,6 +369,53 @@ const gates: GateThreshold[] = [
   { id: "g3", phamVi: "Hệ thống (mặc định)", chiSo: "Độ chính xác trường", nguong: 0.9, huong: "cao-tot" },
 ];
 
+const hangChoRaSoat: HoSoRaSoat[] = [
+  {
+    id: "rs1",
+    maHoSo: "HS-2417",
+    tenTep: "Sao-ke-ngan-hang-Q2.pdf",
+    docType: "Sao kê ngân hàng",
+    domainId: "tai-chinh",
+    nguoiGui: "Nguyễn Thu Hà",
+    guiLuc: iso(96),
+    lyDoRaSoat: "2 trường có độ tin cậy thấp hơn ngưỡng an toàn",
+    doUuTien: "cao",
+    trangThai: "cho-ra-soat",
+    truong: [
+      { id: "f1", nhan: "Chủ tài khoản", giaTri: "CÔNG TY CP AN PHÁT", giaTriGoc: "CÔNG TY CP AN PHÁT", doTinCay: 0.97, trichDan: "…CHỦ TÀI KHOẢN: CÔNG TY CP AN PHÁT…", viTri: "Trang 1 · phần đầu sao kê", trangThai: "cho" },
+      { id: "f2", nhan: "Số tài khoản", giaTri: "0451 0000 87231", giaTriGoc: "0451 0000 87231", doTinCay: 0.72, trichDan: "…STK: 0451 0000 8723? (chữ số cuối mờ)…", viTri: "Trang 1 · dòng 4", trangThai: "cho" },
+      { id: "f3", nhan: "Kỳ sao kê", giaTri: "01/04/2026 – 30/06/2026", giaTriGoc: "01/04/2026 – 30/06/2026", doTinCay: 0.93, trichDan: "…Kỳ: 01/04/2026 đến 30/06/2026…", viTri: "Trang 1 · dòng 6", trangThai: "cho" },
+      { id: "f4", nhan: "Số dư cuối kỳ", giaTri: "2.845.120.500 đ", giaTriGoc: "2.845.120.500 đ", doTinCay: 0.61, trichDan: "…Số dư cuối kỳ: 2.845.120.5?? (nhòe mực)…", viTri: "Trang 14 · dòng cuối", trangThai: "cho" },
+    ],
+  },
+  {
+    id: "rs2",
+    maHoSo: "HS-2420",
+    tenTep: "Hop-dong-kinh-te-2026-08.pdf",
+    docType: "Hợp đồng kinh tế",
+    domainId: "tai-chinh",
+    nguoiGui: "Trần Quốc Bảo",
+    guiLuc: iso(30),
+    lyDoRaSoat: "Loại tài liệu mới, chưa đủ tự tin để tự động duyệt",
+    doUuTien: "thuong",
+    trangThai: "cho-ra-soat",
+    truong: [
+      { id: "g1", nhan: "Bên A", giaTri: "Công ty CP An Phát", giaTriGoc: "Công ty CP An Phát", doTinCay: 0.9, trichDan: "…BÊN A (Bên mua): Công ty CP An Phát…", viTri: "Trang 1 · Điều khoản chung", trangThai: "cho" },
+      { id: "g2", nhan: "Bên B", giaTri: "Công ty TNHH Minh Long", giaTriGoc: "Công ty TNHH Minh Long", doTinCay: 0.88, trichDan: "…BÊN B (Bên bán): Công ty TNHH Minh Long…", viTri: "Trang 1 · Điều khoản chung", trangThai: "cho" },
+      { id: "g3", nhan: "Giá trị hợp đồng", giaTri: "1.250.000.000 đ", giaTriGoc: "1.250.000.000 đ", doTinCay: 0.79, trichDan: "…Tổng giá trị: 1.250.000.000 VNĐ (một tỷ hai trăm năm mươi triệu)…", viTri: "Trang 2 · Điều 3", trangThai: "cho" },
+      { id: "g4", nhan: "Ngày hiệu lực", giaTri: "01/08/2026", giaTriGoc: "01/08/2026", doTinCay: 0.83, trichDan: "…có hiệu lực kể từ ngày 01/08/2026…", viTri: "Trang 4 · Điều khoản cuối", trangThai: "cho" },
+    ],
+  },
+];
+
+const bundles: BundleVersion[] = [
+  { id: "b-hd-7", docType: "Hóa đơn GTGT", phienBan: 7, trangThai: "PUBLISHED", taoLuc: iso(60), taoBoi: "Nguyễn Thu Hà", ghiChu: "Bổ sung quy tắc kiểm tra MST người bán", soCauHinh: 5 },
+  { id: "b-hd-6", docType: "Hóa đơn GTGT", phienBan: 6, trangThai: "DEPRECATED", taoLuc: iso(4300), taoBoi: "Nguyễn Thu Hà", ghiChu: "Cập nhật prompt bóc tách thuế suất", soCauHinh: 5 },
+  { id: "b-hd-5", docType: "Hóa đơn GTGT", phienBan: 5, trangThai: "DEPRECATED", taoLuc: iso(11000), taoBoi: "Trần Quốc Bảo", ghiChu: "Phiên bản nền tảng ban đầu", soCauHinh: 4 },
+  { id: "b-sk-3", docType: "Sao kê ngân hàng", phienBan: 3, trangThai: "PUBLISHED", taoLuc: iso(220), taoBoi: "Trần Quốc Bảo", ghiChu: "Thêm schema số dư từng kỳ", soCauHinh: 4 },
+  { id: "b-hdkt-1", docType: "Hợp đồng kinh tế", phienBan: 1, trangThai: "APPROVED", taoLuc: iso(1400), taoBoi: "Trần Quốc Bảo", ghiChu: "Bản đóng gói đầu tiên, chờ xuất bản", soCauHinh: 2 },
+];
+
 let state: State = {
   domainId: "tai-chinh",
   toChuc,
@@ -338,6 +429,8 @@ let state: State = {
   datasets,
   evaluations,
   gates,
+  hangChoRaSoat,
+  bundles,
 };
 
 /* ---------------------------- Store core ------------------------- */
