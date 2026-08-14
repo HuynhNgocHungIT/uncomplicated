@@ -17,7 +17,13 @@ import { Route as GuiHoSoRouteImport } from './routes/gui-ho-so'
 import { Route as TaiKhoanRouteImport } from './routes/tai-khoan'
 import { Route as TroGiupRouteImport } from './routes/tro-giup'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAuditRouteImport } from './routes/admin.audit'
+import { Route as AdminDanhGiaRouteImport } from './routes/admin.danh-gia'
 import { Route as AdminKnowledgeStudioRouteImport } from './routes/admin.knowledge-studio'
+import { Route as AdminPhanHoiRouteImport } from './routes/admin.phan-hoi'
+import { Route as AdminPhanQuyenRouteImport } from './routes/admin.phan-quyen'
+import { Route as AdminToChucRouteImport } from './routes/admin.to-chuc'
+import { Route as AdminTuanThuRouteImport } from './routes/admin.tuan-thu'
 import { Route as HoSoIndexRouteImport } from './routes/ho-so.index'
 import { Route as HoSoIdRouteImport } from './routes/ho-so.$id'
 
@@ -61,9 +67,39 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminAuditRoute = AdminAuditRouteImport.update({
+  id: '/admin/audit',
+  path: '/admin/audit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminDanhGiaRoute = AdminDanhGiaRouteImport.update({
+  id: '/admin/danh-gia',
+  path: '/admin/danh-gia',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminKnowledgeStudioRoute = AdminKnowledgeStudioRouteImport.update({
   id: '/admin/knowledge-studio',
   path: '/admin/knowledge-studio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPhanHoiRoute = AdminPhanHoiRouteImport.update({
+  id: '/admin/phan-hoi',
+  path: '/admin/phan-hoi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPhanQuyenRoute = AdminPhanQuyenRouteImport.update({
+  id: '/admin/phan-quyen',
+  path: '/admin/phan-quyen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminToChucRoute = AdminToChucRouteImport.update({
+  id: '/admin/to-chuc',
+  path: '/admin/to-chuc',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminTuanThuRoute = AdminTuanThuRouteImport.update({
+  id: '/admin/tuan-thu',
+  path: '/admin/tuan-thu',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HoSoIndexRoute = HoSoIndexRouteImport.update({
@@ -85,7 +121,13 @@ export interface FileRoutesByFullPath {
   '/gui-ho-so': typeof GuiHoSoRoute
   '/tai-khoan': typeof TaiKhoanRoute
   '/tro-giup': typeof TroGiupRoute
+  '/admin/audit': typeof AdminAuditRoute
+  '/admin/danh-gia': typeof AdminDanhGiaRoute
   '/admin/knowledge-studio': typeof AdminKnowledgeStudioRoute
+  '/admin/phan-hoi': typeof AdminPhanHoiRoute
+  '/admin/phan-quyen': typeof AdminPhanQuyenRoute
+  '/admin/to-chuc': typeof AdminToChucRoute
+  '/admin/tuan-thu': typeof AdminTuanThuRoute
   '/ho-so/$id': typeof HoSoIdRoute
   '/admin/': typeof AdminIndexRoute
   '/ho-so/': typeof HoSoIndexRoute
@@ -98,7 +140,13 @@ export interface FileRoutesByTo {
   '/gui-ho-so': typeof GuiHoSoRoute
   '/tai-khoan': typeof TaiKhoanRoute
   '/tro-giup': typeof TroGiupRoute
+  '/admin/audit': typeof AdminAuditRoute
+  '/admin/danh-gia': typeof AdminDanhGiaRoute
   '/admin/knowledge-studio': typeof AdminKnowledgeStudioRoute
+  '/admin/phan-hoi': typeof AdminPhanHoiRoute
+  '/admin/phan-quyen': typeof AdminPhanQuyenRoute
+  '/admin/to-chuc': typeof AdminToChucRoute
+  '/admin/tuan-thu': typeof AdminTuanThuRoute
   '/ho-so/$id': typeof HoSoIdRoute
   '/admin': typeof AdminIndexRoute
   '/ho-so': typeof HoSoIndexRoute
@@ -112,7 +160,13 @@ export interface FileRoutesById {
   '/gui-ho-so': typeof GuiHoSoRoute
   '/tai-khoan': typeof TaiKhoanRoute
   '/tro-giup': typeof TroGiupRoute
+  '/admin/audit': typeof AdminAuditRoute
+  '/admin/danh-gia': typeof AdminDanhGiaRoute
   '/admin/knowledge-studio': typeof AdminKnowledgeStudioRoute
+  '/admin/phan-hoi': typeof AdminPhanHoiRoute
+  '/admin/phan-quyen': typeof AdminPhanQuyenRoute
+  '/admin/to-chuc': typeof AdminToChucRoute
+  '/admin/tuan-thu': typeof AdminTuanThuRoute
   '/ho-so/$id': typeof HoSoIdRoute
   '/admin/': typeof AdminIndexRoute
   '/ho-so/': typeof HoSoIndexRoute
@@ -127,7 +181,13 @@ export interface FileRouteTypes {
     | '/gui-ho-so'
     | '/tai-khoan'
     | '/tro-giup'
+    | '/admin/audit'
+    | '/admin/danh-gia'
     | '/admin/knowledge-studio'
+    | '/admin/phan-hoi'
+    | '/admin/phan-quyen'
+    | '/admin/to-chuc'
+    | '/admin/tuan-thu'
     | '/ho-so/$id'
     | '/admin/'
     | '/ho-so/'
@@ -140,7 +200,13 @@ export interface FileRouteTypes {
     | '/gui-ho-so'
     | '/tai-khoan'
     | '/tro-giup'
+    | '/admin/audit'
+    | '/admin/danh-gia'
     | '/admin/knowledge-studio'
+    | '/admin/phan-hoi'
+    | '/admin/phan-quyen'
+    | '/admin/to-chuc'
+    | '/admin/tuan-thu'
     | '/ho-so/$id'
     | '/admin'
     | '/ho-so'
@@ -153,7 +219,13 @@ export interface FileRouteTypes {
     | '/gui-ho-so'
     | '/tai-khoan'
     | '/tro-giup'
+    | '/admin/audit'
+    | '/admin/danh-gia'
     | '/admin/knowledge-studio'
+    | '/admin/phan-hoi'
+    | '/admin/phan-quyen'
+    | '/admin/to-chuc'
+    | '/admin/tuan-thu'
     | '/ho-so/$id'
     | '/admin/'
     | '/ho-so/'
@@ -167,7 +239,13 @@ export interface RootRouteChildren {
   GuiHoSoRoute: typeof GuiHoSoRoute
   TaiKhoanRoute: typeof TaiKhoanRoute
   TroGiupRoute: typeof TroGiupRoute
+  AdminAuditRoute: typeof AdminAuditRoute
+  AdminDanhGiaRoute: typeof AdminDanhGiaRoute
   AdminKnowledgeStudioRoute: typeof AdminKnowledgeStudioRoute
+  AdminPhanHoiRoute: typeof AdminPhanHoiRoute
+  AdminPhanQuyenRoute: typeof AdminPhanQuyenRoute
+  AdminToChucRoute: typeof AdminToChucRoute
+  AdminTuanThuRoute: typeof AdminTuanThuRoute
   HoSoIdRoute: typeof HoSoIdRoute
   AdminIndexRoute: typeof AdminIndexRoute
   HoSoIndexRoute: typeof HoSoIndexRoute
@@ -231,11 +309,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/audit': {
+      id: '/admin/audit'
+      path: '/admin/audit'
+      fullPath: '/admin/audit'
+      preLoaderRoute: typeof AdminAuditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/danh-gia': {
+      id: '/admin/danh-gia'
+      path: '/admin/danh-gia'
+      fullPath: '/admin/danh-gia'
+      preLoaderRoute: typeof AdminDanhGiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/knowledge-studio': {
       id: '/admin/knowledge-studio'
       path: '/admin/knowledge-studio'
       fullPath: '/admin/knowledge-studio'
       preLoaderRoute: typeof AdminKnowledgeStudioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/phan-hoi': {
+      id: '/admin/phan-hoi'
+      path: '/admin/phan-hoi'
+      fullPath: '/admin/phan-hoi'
+      preLoaderRoute: typeof AdminPhanHoiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/phan-quyen': {
+      id: '/admin/phan-quyen'
+      path: '/admin/phan-quyen'
+      fullPath: '/admin/phan-quyen'
+      preLoaderRoute: typeof AdminPhanQuyenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/to-chuc': {
+      id: '/admin/to-chuc'
+      path: '/admin/to-chuc'
+      fullPath: '/admin/to-chuc'
+      preLoaderRoute: typeof AdminToChucRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/tuan-thu': {
+      id: '/admin/tuan-thu'
+      path: '/admin/tuan-thu'
+      fullPath: '/admin/tuan-thu'
+      preLoaderRoute: typeof AdminTuanThuRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ho-so/': {
@@ -263,7 +383,13 @@ const rootRouteChildren: RootRouteChildren = {
   GuiHoSoRoute: GuiHoSoRoute,
   TaiKhoanRoute: TaiKhoanRoute,
   TroGiupRoute: TroGiupRoute,
+  AdminAuditRoute: AdminAuditRoute,
+  AdminDanhGiaRoute: AdminDanhGiaRoute,
   AdminKnowledgeStudioRoute: AdminKnowledgeStudioRoute,
+  AdminPhanHoiRoute: AdminPhanHoiRoute,
+  AdminPhanQuyenRoute: AdminPhanQuyenRoute,
+  AdminToChucRoute: AdminToChucRoute,
+  AdminTuanThuRoute: AdminTuanThuRoute,
   HoSoIdRoute: HoSoIdRoute,
   AdminIndexRoute: AdminIndexRoute,
   HoSoIndexRoute: HoSoIndexRoute,
